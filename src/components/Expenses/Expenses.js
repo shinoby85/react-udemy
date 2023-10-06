@@ -12,7 +12,7 @@ function Expenses(props) {
                 <ExpensesFilter updateFilterYear={setFilterYear} />
             </div>
             <div className="expenses-items">
-                {(props.expenses.filter(item => item.date.getFullYear() == filterYear || !filterYear).map(item => (
+                {(props.expenses.filter(item => item.date.getFullYear() === filterYear || !filterYear).map(item => (
                     <ExpenseItem id={item.id} title={item.title} amount={item.amount} date={item.date}/>
                 )))}
             </div>

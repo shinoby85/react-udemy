@@ -5,8 +5,7 @@ import './ExpensesFilter.css';
 const ExpensesFilter = (props) => {
     const setFilterYear = (ev) => {
         const element = ev.target;
-        console.log(element.value);
-        props.updateFilterYear(element.value);
+        props.updateFilterYear(Number(element.value));
     }
     return (
         <div className='expenses-filter'>
