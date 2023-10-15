@@ -12,7 +12,7 @@ function Expenses(props) {
             <Card className='expenses'>
                 <ExpensesFilter selected={filterYear} updateFilterYear={setFilterYear}/>
                 {(props.expenses.filter(item => item.date.getFullYear() === Number(filterYear)).map(item => (
-                    <ExpenseItem id={item.id} title={item.title} amount={item.amount} date={item.date}/>
+                    <ExpenseItem key={item.id} title={item.title} amount={item.amount} date={item.date}/>
                 )))}
             </Card>
         </div>
