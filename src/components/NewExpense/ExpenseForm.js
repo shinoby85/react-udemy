@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 
 import './ExpenseForm.css';
 
-const ExpenseForm = ({onAddNewExpense}) => {
+const ExpenseForm = ({onAddNewExpense, setIsOpenForm}) => {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
-    const [openFormFields, setOpenFormFields] = useState(false);
+    // const [openFormFields, setOpenFormFields] = useState(false);
 
     const titleChangeHandler = (event) => {
         setEnteredTitle(event.target.value);
@@ -28,38 +28,29 @@ const ExpenseForm = ({onAddNewExpense}) => {
             date: new Date(enteredDate)
         }
         onAddNewExpense(enteredData);
-        setOpenFormFields(false);
-    }
-
-    let formData = (<button type='button' onClick={() => setOpenFormFields(true)}>Add New Expense</button>);
-    if (openFormFields) {
-        formData = (
-            <div>
-                <div className='new-expense__controls'>
-                    <div className='new-expense__control'>
-                        <label>Title</label>
-                        <input type='text' onChange={titleChangeHandler}/>
-                    </div>
-                    <div className='new-expense__control'>
-                        <label>Amount</label>
-                        <input type='number' min='0.01' step='0.01' onChange={amountChangeHandler}/>
-                    </div>
-                    <div className='new-expense__control'>
-                        <label>Date</label>
-                        <input type='date' min='2019-01-01' max='2022-12-31' onChange={dateChangeHandler}/>
-                    </div>
-                </div>
-                <div className='new-expense__actions'>
-                    <button type='reset' onClick={() => setOpenFormFields(false)}>Cancel</button>
-                    <button type='submit'>Add Expense</button>
-                </div>
-            </div>
-        );
+        setIsOpenForm(false);
     }
 
     return (
         <form onSubmit={addNewExpenseData}>
-            {formData}
+            <div className='new-expense__controls'>
+                <div className='new-expense__control'>
+                    <label>Title</label>
+                    <input type='text' onChange={titleChangeHandler}/>
+                </div>
+                <div className='new-expense__control'>
+                    <label>Amount</label>
+                    <input type='number' min='0.01' step='0.01' onChange={amountChangeHandler}/>
+                </div>
+                <div className='new-expense__control'>
+                    <label>Date</label>
+                    <input type='date' min='2019-01-01' max='2022-12-31' onChange={dateChangeHandler}/>
+                </div>
+            </div>
+            <div className='new-expense__actions'>
+                <button type='reset' onClick={() => setIsOpenForm(false)}>Cancel</button>
+                <button type='submit'>Add Expense</button>
+            </div>
         </form>
     );
 };
