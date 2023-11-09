@@ -1,4 +1,6 @@
-export default function CoreConcept({image, title, description}) {
+import {PropsWithChildren} from "react";
+
+export default function CoreConcept({image, title, description}: PropsWithChildren<{}>) {
   return (
     <li>
       <img src={image} alt={title}/>
