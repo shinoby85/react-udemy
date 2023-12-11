@@ -11,6 +11,7 @@ function App() {
     expectedReturn: 6,
     duration: 10
   });
+
   function handleChange(inputIdentifier, newValue) {
     setUserInput(prevUserInput => {
       return {
@@ -19,14 +20,18 @@ function App() {
       }
     })
   }
+
+  const inputIsValid = userInput.duration >= 1;
+
   return (
     <main>
-      <Header />
+      <Header/>
       <UserInput userInput={userInput} onChange={handleChange}/>
-      <Result userInput={userInput} />
+      {!inputIsValid && <p className="center">Введите значение отличное от нуля</p>}
+      {inputIsValid && <Result userInput={userInput}/>}
     </main>
 
   )
 }
 
-export default App
+export default App;
