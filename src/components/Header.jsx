@@ -1,6 +1,6 @@
 import reactLogo from '../assets/react-core-concepts.png';
 import './Header.css';
-export function Header() {
+export default function Header() {
   const imgAltText = 'Stylized atom';
   const reactDescriptions = ['Fundamental', 'Crucial', 'Core'];
 
