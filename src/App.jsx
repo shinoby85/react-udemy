@@ -51,7 +51,7 @@ function App() {
 
             {CORE_CONCEPTS.map((concept, index) => (
               <CoreConcept
-
+                key={index}
                 image={concept.image}
                 title={concept.title}
                 description={concept.description}
