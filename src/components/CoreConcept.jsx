@@ -1,4 +1,4 @@
-import './CoreConcept.css'
+import coreStyles from './CoreConcept.module.css'
 // export default function CoreConcept(props) {
 //   return (
 //     <li>
@@ -10,10 +10,10 @@ import './CoreConcept.css'
 // }
 export default function CoreConcept({image,title,description}) {
   return (
-    <li>
-      <img src={image} alt={title}/>
-      <h3>{title}</h3>
-      <p>{description}</p>
+    <li className={coreStyles.list}>
+      <img className={coreStyles.image} src={image} alt={title}/>
+      <h3 className={coreStyles.list__title}>{title}</h3>
+      <p className={coreStyles.list__article}>{description}</p>
     </li>
   );
 }

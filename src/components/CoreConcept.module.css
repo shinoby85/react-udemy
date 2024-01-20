@@ -1,18 +1,18 @@
-#core-concepts li {
+.list {
     width: 10rem;
     text-align: center;
 }
 
-#core-concepts li img {
+.image {
     height: 4rem;
     width: 6rem;
     object-fit: cover;
 }
 
-#core-concepts li h3 {
+.list__title{
     margin: 0.5rem 0;
 }
 
-#core-concepts li p {
+.list__article {
     font-size: 0.9rem;
 }
