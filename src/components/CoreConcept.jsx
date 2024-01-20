@@ -8,7 +8,7 @@ import coreStyles from './CoreConcept.module.css'
 //     </li>
 //   );
 // }
-export default function CoreConcept({image,title,description}) {
+export default function CoreConcept({image, title, description}) {
   return (
     <li className={coreStyles.list}>
       <img className={coreStyles.image} src={image} alt={title}/>
