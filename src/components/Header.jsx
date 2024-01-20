@@ -19,9 +19,9 @@ export default function Header() {
           color: ${(props)=>props.$colorText ? 'red' : '#8964b0'};
           font-family: "Roboto Condensed", sans-serif;
           
-          &:hover{
-              font-size: 2rem;
-          }
+          //&:hover{
+          //    font-size: 2rem;
+          //}
       }      
   `
   const SecondHeader =styled.div`

@@ -1,19 +1,9 @@
-import coreStyles from './CoreConcept.module.css'
-// export default function CoreConcept(props) {
-//   return (
-//     <li>
-//       <img src={props.image} alt={props.title}/>
-//       <h3>{props.title}</h3>
-//       <p>{props.description}</p>
-//     </li>
-//   );
-// }
 export default function CoreConcept({image, title, description}) {
   return (
-    <li className={coreStyles.list}>
-      <img className={coreStyles.image} src={image} alt={title}/>
-      <h3 className={coreStyles.list__title}>{title}</h3>
-      <p className={coreStyles.list__article}>{description}</p>
+    <li className="w-40 text-center">
+      <img className="h-16 w-24 object-cover" src={image} alt={title}/>
+      <h3 className="my-2 mx-0">{title}</h3>
+      <p className="text-sm">{description}</p>
     </li>
   );
 }

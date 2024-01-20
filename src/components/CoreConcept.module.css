@@ -1,18 +1,18 @@
-.list {
+.li {
     width: 10rem;
     text-align: center;
 }
 
-.image {
+.img {
     height: 4rem;
     width: 6rem;
     object-fit: cover;
 }
 
-.list__title{
+.h3{
     margin: 0.5rem 0;
 }
 
-.list__article {
+.p {
     font-size: 0.9rem;
 }
