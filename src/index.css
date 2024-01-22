@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
 /*@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap");*/
 
 * {
@@ -45,15 +43,15 @@ main h2 {
   color: #a18aba;
 }
 
-#core-concepts ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 2rem;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+/*#core-concepts ul {*/
+/*  list-style: none;*/
+/*  padding: 0;*/
+/*  margin: 0;*/
+/*  display: flex;*/
+/*  gap: 2rem;*/
+/*  flex-wrap: wrap;*/
+/*  justify-content: center;*/
+/*}*/
 
 #examples {
   margin: 3rem auto;

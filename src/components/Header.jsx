@@ -6,8 +6,10 @@ export default function Header() {
   const isRedColor=false;
 
   const CustomHeader = styled.header`
-      text-align: center;
       margin: 3rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       & img{
           height: 5rem;
           width: 10rem;

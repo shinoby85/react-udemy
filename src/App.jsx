@@ -26,8 +26,8 @@ function App() {
       <Header/>
       <main>
         <section id='core-concepts'>
-          <h2>Core Concepts</h2>
-          <ul>
+          <h2 className="text-center font-title mb-6 text-[#a18aba]">Core Concepts</h2>
+          <ul className="list-none p-0 m-0 flex gap-8 flex-wrap justify-center">
             {CORE_CONCEPTS.map((concept, index) => (
               <CoreConcept
                 key={index}
