@@ -1,12 +1,12 @@
-import Menu from "./components/Menu.jsx";
-import WorkSide from "./components/WorkSide.jsx";
+import ProjectSidebar from "./components/ProjectSidebar.jsx";
+import NewProject from "./components/NewProject.jsx";
 
 function App() {
   return (
-    <div className="main__wrapper flex gap-x-px-5 h-screen">
-      <Menu />
-      <WorkSide />
-    </ div>
+    <main className="h-screen my-8 flex gap-8">
+      <ProjectSidebar/>
+      <NewProject/>
+    </ main>
   );
 }
 
