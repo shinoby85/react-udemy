@@ -4,6 +4,8 @@ import {useState} from "react";
 import Log from "./components/Log.jsx";
 import {WINNING_COMBINATIONS} from "./winning-combinations.js";
 import GameOver from "./components/GameOver.jsx";
+import SettingsDialog from "./components/SettingsDialog.jsx";
+import styles from '/src/App.module.css';
 
 const gameBoardInit = [[null, null, null], [null, null, null], [null, null, null]];
 
@@ -16,6 +18,36 @@ function deriveActivePlayer(gameTurns) {
 }
 
 function App() {
+
+  const [settings, setSettings] = useState({
+    isSettingsOpen: false,
+    opponents: 'player',
+    gamesToWin: 3,
+    themId: 1
+  });
+
+  function handlerSettingsButton() {
+    setSettings(prevSettings => {
+      return {
+        ...prevSettings,
+        isSettingsOpen: !prevSettings.isSettingsOpen
+      }
+    })
+  }
+
+  function handlerChangeSettings(setings) {
+    setSettings(prevSettings => {
+      return {
+        ...prevSettings,
+        ...setings,
+        isSettingsOpen: false
+      }
+    })
+  }
+
+  console.log(settings);
+
+
   const [players, setPlayers] = useState({
     X: 'Player 1',
     O: 'Player 2'
@@ -68,6 +100,9 @@ function App() {
 
   return (
     <main>
+      <button onClick={handlerSettingsButton} className={styles.settings_button}>Se</button>
+      {settings.isSettingsOpen && <SettingsDialog onSettings={handlerChangeSettings}/>}
+
       <div id="game-container">
         <ol id="players" className="highlight-player">
           <Player initialName="Player 1" symbol="X" isActive={activePlayer === "X"}
