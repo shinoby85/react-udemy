@@ -1,8 +1,9 @@
 import {useContext} from "react";
 import {CartContext} from "../store/shopping-cart-context.jsx";
+import {UPDATE_ITEM} from "../store/constants.js";
 
 export default function Cart() {
-  const {items, updateCartItemQuantity} = useContext(CartContext);
+  const {items, shoppingCartDispatch} = useContext(CartContext);
   const totalPrice = items.reduce(
     (acc, item) => acc + item.price * item.quantity,
     0
@@ -24,11 +25,23 @@ export default function Cart() {
                   <span> ({formattedPrice})</span>
                 </div>
                 <div className="cart-item-actions">
-                  <button onClick={() => updateCartItemQuantity(item.id, -1)}>
+                  <button onClick={() => shoppingCartDispatch({
+                    type: UPDATE_ITEM,
+                    payload: {
+                      productId: item.id,
+                      amount: -1
+                    }}
+                  )}>
                     -
                   </button>
                   <span>{item.quantity}</span>
-                  <button onClick={() => updateCartItemQuantity(item.id, 1)}>
+                  <button onClick={() => shoppingCartDispatch({
+                    type: UPDATE_ITEM,
+                    payload: {
+                      productId: item.id,
+                      amount: 1
+                    }}
+                  )}>
                     +
                   </button>
                 </div>

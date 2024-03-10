@@ -4,10 +4,7 @@ import {ADD_ITEM, UPDATE_ITEM} from "./constants.js";
 
 export const CartContext = createContext({
   items: [],
-  addItemToCart: () => {
-  },
-  updateCartItemQuantity: () => {
-  }
+  shoppingCartDispatch: () => {}
 });
 
 function shoppingCartReducer(state, action) {
@@ -70,25 +67,9 @@ function shoppingCartReducer(state, action) {
 
 export default function CartContextProvider({children}) {
   const [shoppingCartState, shoppingCartDispatch] = useReducer(shoppingCartReducer, {items: []});
-
-  function handleAddItemToCart(id) {
-    shoppingCartDispatch({
-      type: ADD_ITEM,
-      payload: {id}
-    });
-  }
-
-  function handleUpdateCartItemQuantity(productId, amount) {
-    shoppingCartDispatch({
-      type: UPDATE_ITEM,
-      payload: {productId, amount}
-    });
-  }
-
   const ctxValue = {
     items: shoppingCartState.items,
-    addItemToCart: handleAddItemToCart,
-    updateCartItemQuantity: handleUpdateCartItemQuantity
+    shoppingCartDispatch
   }
 
   return <CartContext.Provider value={ctxValue}>
