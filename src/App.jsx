@@ -1,4 +1,4 @@
-import {useEffect, useImperativeHandle, useRef, useState} from 'react';
+import {useCallback, useEffect, useRef, useState} from 'react';
 
 import Places from './components/Places.jsx';
 import {AVAILABLE_PLACES} from './data.js';
@@ -12,7 +12,7 @@ function App() {
   const [availablePlaces, setAvailablePlaces] = useState([]);
   const [pickedPlaces, setPickedPlaces] = useState([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
+  
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       const sortedPlaces = sortPlacesByDistance(
@@ -23,16 +23,16 @@ function App() {
       setAvailablePlaces(sortedPlaces);
     })
   }, [])
-
+  
   function handleStartRemovePlace(id) {
     setModalIsOpen(true);
     selectedPlace.current = id;
   }
-
+  
   function handleStopRemovePlace() {
     setModalIsOpen(false);
   }
-
+  
   function handleSelectPlace(id) {
     setPickedPlaces((prevPickedPlaces) => {
       if (prevPickedPlaces.some((place) => place.id === id)) {
@@ -46,16 +46,16 @@ function App() {
       localStorage.setItem('selectedPlaces', JSON.stringify([id, ...storedId]));
     }
   }
-
-  function handleRemovePlace() {
+  
+  const handleRemovePlace = useCallback(function handleRemovePlace() {
     setPickedPlaces((prevPickedPlaces) =>
       prevPickedPlaces.filter((place) => place.id !== selectedPlace.current)
     );
     setModalIsOpen(false);
     const storedIds = JSON.parse(localStorage.getItem('selectedPlaces')) || [];
     localStorage.setItem('selectedPlaces', JSON.stringify(storedIds.filter(id => id !== selectedPlace.current)))
-  }
-
+  }, []);
+  
   return (
     <>
       <Modal open={modalIsOpen}>
@@ -64,7 +64,7 @@ function App() {
           onConfirm={handleRemovePlace}
         />
       </Modal>
-
+      
       <header>
         <img src={logoImg} alt="Stylized globe"/>
         <h1>PlacePicker</h1>
