@@ -35,6 +35,7 @@ function reducerFn(state, action) {
         });
       }
       return {
+        ...state,
         items: updatedItems,
       };
     }
@@ -57,6 +58,7 @@ function reducerFn(state, action) {
       }
       
       return {
+        ...state,
         items: updatedItems,
       };
     }
