@@ -19,7 +19,7 @@ export default function Question(
   if (answer.selectedAnswer) {
     timer = 1000;
   }
-  if (answer.isCorrect) {
+  if (answer.isCorrect !== null) {
     timer = 2000;
   }
   
@@ -47,7 +47,7 @@ export default function Question(
     answerState = 'answered'
   }
   return (
-    <div id='questuon'>
+    <div id='question'>
       <QuestionTimer
         key={timer}
         timeout={timer}
