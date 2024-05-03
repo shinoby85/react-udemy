@@ -1,16 +1,16 @@
-import { useState } from 'react';
+import {useState} from 'react';
 
-import { log } from '../../log.js';
+import {log} from '../../log.js';
 
-function HistoryItem({ count }) {
+function HistoryItem({count}) {
   log('<HistoryItem /> rendered', 3);
-
+  
   const [selected, setSelected] = useState(false);
-
+  
   function handleClick() {
     setSelected((prevSelected) => !prevSelected);
   }
-
+  
   return (
     <li onClick={handleClick} className={selected ? 'selected' : undefined}>
       {count}
@@ -18,13 +18,13 @@ function HistoryItem({ count }) {
   );
 }
 
-export default function CounterHistory({ history }) {
+export default function CounterHistory({history}) {
   log('<CounterHistory /> rendered', 2);
-
+  
   return (
     <ol>
-      {history.map((count, index) => (
-        <HistoryItem key={index} count={count} />
+      {history.map((count) => (
+        <HistoryItem key={count.id} count={count.value}/>
       ))}
     </ol>
   );
