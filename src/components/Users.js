@@ -1,22 +1,34 @@
 import {Component} from 'react';
 
+import User from './User';
 import classes from './Users.module.css';
-import User from "./User";
 
 class Users extends Component {
   constructor() {
     super();
     this.state = {
-      showUsers: false,
-      mare: 'Test'
+      showUsers: true,
+      more: 'Test',
     };
   }
   
-  toggleUsersHandler = () => {
-    this.setState((curState) => ({
-      showUsers: !curState.showUsers,
-    }));
-  };
+  componentDidUpdate() {
+    // try {
+    //   someCodeWhichMightFail()
+    // } catch (err) {
+    //   // handle error
+    // }
+    if (this.props.users.length === 0) {
+      throw new Error('No users provided!');
+    }
+  }
+  
+  toggleUsersHandler() {
+    // this.state.showUsers = false; // NOT!
+    this.setState((curState) => {
+      return {showUsers: !curState.showUsers};
+    });
+  }
   
   render() {
     const usersList = (
@@ -26,6 +38,7 @@ class Users extends Component {
         ))}
       </ul>
     );
+    
     return (
       <div className={classes.users}>
         <button onClick={this.toggleUsersHandler.bind(this)}>
