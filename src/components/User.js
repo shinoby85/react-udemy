@@ -1,10 +1,15 @@
+import {Component} from 'react';
+
 import classes from './User.module.css';
-import {Component} from "react";
 
 class User extends Component {
-    render() {
-        return <li className={classes.user}>{this.props.name}</li>;
-    }
+  componentWillUnmount() {
+    console.log('User will unmount!');
+  }
+  
+  render() {
+    return <li className={classes.user}>{this.props.name}</li>;
+  }
 }
 
 // const User = (props) => {

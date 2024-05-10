@@ -2,41 +2,37 @@ import {Component, Fragment} from 'react';
 
 import Users from './Users';
 import classes from './UserFinder.module.css';
-import UsersContext from "../store/users-context";
-
-const DUMMY_USERS = [
-  {id: 'u1', name: 'Max'},
-  {id: 'u2', name: 'Manuel'},
-  {id: 'u3', name: 'Julie'},
-];
+import UsersContext from '../store/users-context';
 
 class UserFinder extends Component {
-  static contextTypes = UsersContext;
+  static contextType = UsersContext;
   
   constructor() {
     super();
     this.state = {
-      filteredUsers: DUMMY_USERS,
-      searchTerm: ''
-    }
+      filteredUsers: [],
+      searchTerm: '',
+    };
   }
   
+  componentDidMount() {
+    // Send http request...
+    this.setState({filteredUsers: this.context.users});
+  }
   
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     if (prevState.searchTerm !== this.state.searchTerm) {
-      this.setState((prevState) => ({
-        filteredUsers: this.context.filter(
-          (user) => user.name.includes(prevState.searchTerm)
-        )
-      }));
+      this.setState({
+        filteredUsers: this.context.users.filter((user) =>
+          user.name.includes(this.state.searchTerm)
+        ),
+      });
     }
   }
   
   searchChangeHandler(event) {
-    this.setState({
-      searchTerm: event.target.value
-    });
-  };
+    this.setState({searchTerm: event.target.value});
+  }
   
   render() {
     return (
