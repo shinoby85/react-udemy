@@ -1,5 +1,6 @@
 import UserFinder from './components/UserFinder';
 import UsersContext from './store/users-context';
+import ErrorBoundary from "./components/ErrorBoundary";
 
 const DUMMY_USERS = [
   {id: 'u1', name: 'Max'},
@@ -11,10 +12,12 @@ function App() {
   const usersContext = {
     users: DUMMY_USERS
   }
-  
+
   return (
     <UsersContext.Provider value={usersContext}>
-      <UserFinder/>
+      <ErrorBoundary>
+        <UserFinder/>
+      </ErrorBoundary>
     </UsersContext.Provider>
   );
 }
