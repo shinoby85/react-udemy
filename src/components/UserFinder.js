@@ -5,55 +5,53 @@ import classes from './UserFinder.module.css';
 import UsersContext from "../store/users-context";
 import ErrorBoundary from "./ErrorBoundary";
 
-const DUMMY_USERS = [
-  {id: 'u1', name: 'Max'},
-  {id: 'u2', name: 'Manuel'},
-  {id: 'u3', name: 'Julie'},
-];
-
 class UserFinder extends Component {
-  static contextTypes = UsersContext;
-  
-  constructor() {
-    super();
-    this.state = {
-      filteredUsers: DUMMY_USERS,
-      searchTerm: ''
+    static contextType = UsersContext;
+
+    constructor() {
+        super();
+        this.state = {
+            filteredUsers: [],
+            searchTerm: ''
+        }
     }
-  }
-  
-  
-  componentDidMount() {
-    // Send http request...
-    this.setState({filteredUsers: this.context.users});
-  }
-  
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.searchTerm !== this.state.searchTerm) {
-      this.setState({
-        filteredUsers: this.context.users.filter((user) =>
-          user.name.includes(this.state.searchTerm)
-        ),
-      });
+
+
+    componentDidMount() {
+        // Send http request...
+        this.setState({filteredUsers: this.context.users});
     }
-  }
-  
-  searchChangeHandler(event) {
-    this.setState({searchTerm: event.target.value});
-  }
-  
-  render() {
-    return (
-      <Fragment>
-        <div className={classes.finder}>
-          <input type='search' onChange={this.searchChangeHandler.bind(this)}/>
-        </div>
-        <ErrorBoundary>
-          <Users users={this.state.filteredUsers}/>
-        </ErrorBoundary>
-      </Fragment>
-    );
-  }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.searchTerm !== this.state.searchTerm) {
+            this.setState({
+                filteredUsers: this.context.users.filter((user) =>
+                    user.name.includes(this.state.searchTerm)
+                ),
+            });
+        }
+    }
+
+    searchChangeHandler(event) {
+        this.setState({searchTerm: event.target.value});
+    }
+
+    resetError() {
+        this.setState({searchTerm: ''});
+    }
+
+    render() {
+        return (
+            <Fragment>
+                <div className={classes.finder}>
+                    <input type='search' onChange={this.searchChangeHandler.bind(this)} value={this.state.searchTerm}/>
+                </div>
+                <ErrorBoundary resetError={this.resetError.bind(this)}>
+                    <Users users={this.state.filteredUsers}/>
+                </ErrorBoundary>
+            </Fragment>
+        );
+    }
 }
 
 
