@@ -62,10 +62,16 @@ function App() {
   
   const handleRemovePlace = useCallback(async function handleRemovePlace() {
     // TODO: How to do this shorter
-    setUserPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id));
+    const removePlace = places => places.filter((place) => place.id !== selectedPlace.current.id);
+    
+    // setUserPlaces((prevPickedPlaces) =>
+    //   prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id);
+    
+    // setUserPlaces((prevPickedPlaces) => removePlace(prevPickedPlaces));
+    setUserPlaces(removePlace);
     try {
-      await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
+      // await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
+      await updateUserPlaces(removePlace(userPlaces));
     } catch (error) {
       setUserPlaces(userPlaces);
       setErrorUpdatingPlaces({message: error?.message || 'Faild to delete places.'});
@@ -85,34 +91,34 @@ function App() {
       >
         <Error title="An error occurred!!!" message={errorUpdatingPlaces?.message} onConfirm={handleError}/>
       </Modal>}
-      <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
-        <DeleteConfirmation
-          onCancel={handleStopRemovePlace}
-          onConfirm={handleRemovePlace}
-        />
-      </Modal>
-      
-      <header>
-        <img src={logoImg} alt="Stylized globe"/>
-        <h1>PlacePicker</h1>
-        <p>
-          Create your personal collection of places you would like to visit or
-          you have visited.
-        </p>
-      </header>
-      <main>
-        {errors.message && <Error title="An error occurred!!!" message={errors.message}/>}
-        {!errors.message && <Places
-          title="I'd like to visit ..."
-          fallbackText="Select the places you would like to visit below."
-          places={userPlaces}
-          isLoading={isFetching}
-          loadingText="Loading..."
-          onSelectPlace={handleStartRemovePlace}
-        />}
+        <Modal open={modalIsOpen} onClose={handleStopRemovePlace}>
+          <DeleteConfirmation
+            onCancel={handleStopRemovePlace}
+            onConfirm={handleRemovePlace}
+          />
+        </Modal>
         
-        <AvailablePlaces onSelectPlace={handleSelectPlace}/>
-      </main>
+        <header>
+          <img src={logoImg} alt="Stylized globe"/>
+          <h1>PlacePicker</h1>
+          <p>
+            Create your personal collection of places you would like to visit or
+            you have visited.
+          </p>
+        </header>
+        <main>
+          {errors.message && <Error title="An error occurred!!!" message={errors.message}/>}
+          {!errors.message && <Places
+            title="I'd like to visit ..."
+            fallbackText="Select the places you would like to visit below."
+            places={userPlaces}
+            isLoading={isFetching}
+            loadingText="Loading..."
+            onSelectPlace={handleStartRemovePlace}
+          />}
+          
+          <AvailablePlaces onSelectPlace={handleSelectPlace}/>
+        </main>
     </>
   );
 }
