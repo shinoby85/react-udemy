@@ -45,12 +45,17 @@ function App() {
   }
   
   const handleRemovePlace = useCallback(async function handleRemovePlace() {
+    // TODO: How to do this shorter
     setUserPlaces((prevPickedPlaces) =>
-      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id)
-    );
-    
+      prevPickedPlaces.filter((place) => place.id !== selectedPlace.current.id));
+    try {
+      await updateUserPlaces(userPlaces.filter((place) => place.id !== selectedPlace.current.id));
+    } catch (error) {
+      setUserPlaces(userPlaces);
+      setErrorUpdatingPlaces({message: error?.message || 'Faild to delete places.'});
+    }
     setModalIsOpen(false);
-  }, []);
+  }, [userPlaces]);
   
   function handleError() {
     setErrorUpdatingPlaces(null);
