@@ -1,32 +1,20 @@
 import {useFormik} from "formik";
-import {hasMinLength, isEmail} from "../util/validation.js";
+import * as Yup from 'yup';
 
-const validate = value => {
-  const validationFields = ['email', 'password', 'confirm-password'];
-  const errors = {};
+const yupSchema = Yup.object({
+  email: Yup.string()
+    .max(14, 'Must be 14 characters or less')
+    .required('Required')
+    .email('Email is not valid'),
+  password: Yup.string()
+    .max(6, 'Password must be at least 6 characters')
+    .required('Required'),
+  ['confirm-password']: Yup.string()
+    .max(6, 'Password must be at least 6 characters')
+    .required('Required')
   
-  if (!value.email) {
-    errors.email = "Email is required";
-  } else if (!isEmail(value.email)) {
-    errors.email = "Email is not a valid";
-  }
-  if (!value.password) {
-    errors.password = "Password is required";
-  } else if (hasMinLength(value.password, 6)) {
-    errors.password = "Password must be at least 6 characters";
-  }
-  if (!value['confirm-password']) {
-    errors['confirm-password'] = "Confirm password field is required";
-  } else if (hasMinLength(value['confirm-password'], 6)) {
-    errors['confirm-password'] = "Password must be at least 6 characters";
-  } else if (value.password !== value['confirm-password']) {
-    errors['confirm-password'] = "Passwords don't match";
-  }
-  return {
-    ...errors,
-    ...Object.fromEntries(validationFields.map(field => value[field] === '' ? [field, ''] : [field, errors[field]]))
-  };
-}
+});
+
 export default function Signup() {
   const formik = useFormik({
     initialValues: {
@@ -39,7 +27,7 @@ export default function Signup() {
       acquisition: '',
       terms: ''
     },
-    validate,
+    validationSchema: yupSchema,
     onSubmit: (data) => {
       console.log(data);
     }
