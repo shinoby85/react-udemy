@@ -1,4 +1,4 @@
-import {ErrorMessage, Field, Form, Formik} from "formik";
+import {ErrorMessage, Field, Form, Formik, useField} from "formik";
 import * as Yup from 'yup';
 
 const yupSchema = Yup.object({
@@ -15,7 +15,32 @@ const yupSchema = Yup.object({
 });
 
 export default function Signup() {
-  
+  const MyCheckbox = ({children, ...props}) => {
+    const [field, meta] = useField({...props, type: 'checkbox'});
+    return (
+      <div>
+        <label className="checkbox-input">
+          <input type="checkbox" {...field} {...props} />
+          {children}
+        </label>
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };
+  const MySelect = ({label, ...props}) => {
+    const [field, meta] = useField(props);
+    return (
+      <div>
+        <label htmlFor={props.id || props.name}>{label}</label>
+        <select {...field} {...props} />
+        {meta.touched && meta.error ? (
+          <div className="error">{meta.error}</div>
+        ) : null}
+      </div>
+    );
+  };
   
   return (
     <Formik
@@ -23,7 +48,10 @@ export default function Signup() {
         email: '',
         password: '',
         ['confirm-password"']: '',
-        ['first-name']: ''
+        ['first-name']: '',
+        ['last-name']: '',
+        role: 'student',
+        acquisition: ''
       }}
       validationSchema={yupSchema}
       onSubmit={(data) => {
@@ -68,7 +96,40 @@ export default function Signup() {
             <ErrorMessage name='first-name'/>
           
           </div>
+          
+          <div className="control">
+            <label htmlFor="last-name">Last Name</label>
+            <Field type="text" name="last-name"/>
+            <ErrorMessage name='last-name'/>
+          </div>
         </div>
+        
+        <div className="control">
+          <MySelect label='What best describes your role?' name='role'>
+            <option value="student">Student</option>
+            <option value="teacher">Teacher</option>
+            <option value="employee">Employee</option>
+            <option value="founder">Founder</option>
+            <option value="other">Other</option>
+          </MySelect>
+        </div>
+        
+        <fieldset>
+          <legend>How did you find us?</legend>
+          <div className="control">
+            <MyCheckbox name="acquisition">
+              Google
+            </MyCheckbox>
+            <MyCheckbox name="acquisition">
+              Referred by friend
+            </MyCheckbox>
+            <MyCheckbox name="acquisition">
+              Other
+            </MyCheckbox>
+          </div>
+        
+        
+        </fieldset>
         
         <p className="form-actions">
           <button type="reset" className="button button-flat">
