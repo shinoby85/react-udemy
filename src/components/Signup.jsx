@@ -1,28 +1,54 @@
+import {useForm} from 'react-hook-form';
+
 export default function Signup() {
-  function handleSubmit(event) {
-    event.preventDefault();
-    const fd = new FormData(event.target);
-    const acquisitionChanel = fd.getAll('acquisition');
-    const data = Object.fromEntries(fd.entries());
-    data.acquisition = acquisitionChanel;
-    console.log(data);
-    event.target.reset();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: {errors}
+  } = useForm({
+      defaultValues: {acquisition: []}
+    }
+  );
+  const onSubmit = (value) => {
+    console.log(value)
   }
   
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
       
       <div className="control">
         <label htmlFor="email">Email</label>
-        <input id="email" type="email" name="email"/>
+        <input
+          id="email"
+          type="email"
+          {...register('email', {
+            
+            required: {value: true, message: 'Email field is required'},
+            pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: 'Email field is invalid'},
+          })}
+          aria-invalid={errors.email ? "true" : "false"}
+        />
+        {errors.email && <p role="alert">{errors.email?.message}</p>}
       </div>
       
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" name="password"/>
+          <input id="password" type="password" {...register('password', {
+            onBlur: e => {
+              console.log(e);
+              blur();
+            },
+            required: {value: true, message: 'Password field is required'},
+            maxLength: {value: 6, message: 'Password field is need to have less 6 symbols'}
+          })}
+                 aria-invalid={errors.password ? "true" : "false"}
+          />
+          {errors.password && errors.password.type === 'blur' && <p role="alert">{errors.password?.message}</p>}
+        
         </div>
         
         <div className="control">
@@ -30,8 +56,14 @@ export default function Signup() {
           <input
             id="confirm-password"
             type="password"
-            name="confirm-password"
+            {...register('confirm-password', {
+              required: {value: true, message: 'Confirm field is required'},
+              maxLength: {value: 6, message: 'Confirm field is need to have less 6 symbols'}
+            })}
+            aria-invalid={errors['confirm-password'] ? "true" : "false"}
           />
+          {errors['confirm-password'] && <p role="alert">{errors['confirm-password']?.message}</p>}
+        
         </div>
       </div>
       
@@ -40,18 +72,20 @@ export default function Signup() {
       <div className="control-row">
         <div className="control">
           <label htmlFor="first-name">First Name</label>
-          <input type="text" id="first-name" name="first-name"/>
+          <input type="text" id="first-name" {...register('first-name', {min: 4})}
+                 aria-invalid={errors['first-name'] ? "true" : "false"}/>
         </div>
         
         <div className="control">
           <label htmlFor="last-name">Last Name</label>
-          <input type="text" id="last-name" name="last-name"/>
+          <input type="text" id="last-name" {...register('last-name', {min: 4})}
+                 aria-invalid={errors['last-name'] ? "true" : "false"}/>
         </div>
       </div>
       
       <div className="control">
         <label htmlFor="phone">What best describes your role?</label>
-        <select id="role" name="role">
+        <select id="role" {...register('role')}>
           <option value="student">Student</option>
           <option value="teacher">Teacher</option>
           <option value="employee">Employee</option>
@@ -66,8 +100,8 @@ export default function Signup() {
           <input
             type="checkbox"
             id="google"
-            name="acquisition"
             value="google"
+            {...register('acquisition')}
           />
           <label htmlFor="google">Google</label>
         </div>
@@ -76,21 +110,21 @@ export default function Signup() {
           <input
             type="checkbox"
             id="friend"
-            name="acquisition"
             value="friend"
+            {...register('acquisition')}
           />
           <label htmlFor="friend">Referred by friend</label>
         </div>
         
         <div className="control">
-          <input type="checkbox" id="other" name="acquisition" value="other"/>
+          <input type="checkbox" id="other" value="other" {...register('acquisition')}/>
           <label htmlFor="other">Other</label>
         </div>
       </fieldset>
       
       <div className="control">
         <label htmlFor="terms-and-conditions">
-          <input type="checkbox" id="terms-and-conditions" name="terms"/>I
+          <input type="checkbox" id="terms-and-conditions" {...register('terms')}/>I
           agree to the terms and conditions
         </label>
       </div>
