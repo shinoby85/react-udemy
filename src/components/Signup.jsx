@@ -1,13 +1,21 @@
 import {useForm} from 'react-hook-form';
+import {yupResolver} from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
 export default function Signup() {
+  const schema = yup.object({
+    email: yup.string().required('Required').email('Is not valid'),
+    password: yup.string().max(6, 'The password use less than 6 symbols.'),
+    ['confirm-password']: yup.string().max(6, 'The password use less than 6 symbols.')
+  })
   const {
     register,
     handleSubmit,
     watch,
     formState: {errors}
   } = useForm({
-      defaultValues: {acquisition: []}
+      defaultValues: {acquisition: []},
+      resolver: yupResolver(schema)
     }
   );
   const onSubmit = (value) => {
@@ -24,11 +32,7 @@ export default function Signup() {
         <input
           id="email"
           type="email"
-          {...register('email', {
-            
-            required: {value: true, message: 'Email field is required'},
-            pattern: {value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, message: 'Email field is invalid'},
-          })}
+          {...register('email')}
           aria-invalid={errors.email ? "true" : "false"}
         />
         {errors.email && <p role="alert">{errors.email?.message}</p>}
@@ -37,17 +41,10 @@ export default function Signup() {
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
-          <input id="password" type="password" {...register('password', {
-            onBlur: e => {
-              console.log(e);
-              blur();
-            },
-            required: {value: true, message: 'Password field is required'},
-            maxLength: {value: 6, message: 'Password field is need to have less 6 symbols'}
-          })}
+          <input id="password" type="password" {...register('password')}
                  aria-invalid={errors.password ? "true" : "false"}
           />
-          {errors.password && errors.password.type === 'blur' && <p role="alert">{errors.password?.message}</p>}
+          {errors.password && <p role="alert">{errors.password?.message}</p>}
         
         </div>
         
@@ -56,10 +53,7 @@ export default function Signup() {
           <input
             id="confirm-password"
             type="password"
-            {...register('confirm-password', {
-              required: {value: true, message: 'Confirm field is required'},
-              maxLength: {value: 6, message: 'Confirm field is need to have less 6 symbols'}
-            })}
+            {...register('confirm-password')}
             aria-invalid={errors['confirm-password'] ? "true" : "false"}
           />
           {errors['confirm-password'] && <p role="alert">{errors['confirm-password']?.message}</p>}
