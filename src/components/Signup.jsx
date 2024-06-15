@@ -4,7 +4,7 @@ import {hasMinLength, isEmail} from "../util/validation.js";
 const validate = value => {
   const validationFields = ['email', 'password', 'confirm-password'];
   const errors = {};
-  
+
   if (!value.email) {
     errors.email = "Email is required";
   } else if (!isEmail(value.email)) {
@@ -26,6 +26,7 @@ const validate = value => {
     ...errors,
     ...Object.fromEntries(validationFields.map(field => value[field] === '' ? [field, ''] : [field, errors[field]]))
   };
+  //   [[key1, value1], [key2, value2], ...[keyN, valueN]] => {key1: value1, key2: value2, keyN: valueN}
 }
 export default function Signup() {
   const formik = useFormik({
@@ -44,20 +45,20 @@ export default function Signup() {
       console.log(data);
     }
   });
-  
-  
+
+
   return (
     <form onSubmit={formik.handleSubmit}>
       <h2>Welcome on board!</h2>
       <p>We just need a little bit of data from you to get you started 🚀</p>
-      
+
       <div className="control">
         <label htmlFor="email">Email</label>
         <input id="email" type="email" name="email" onChange={formik.handleChange} value={formik.values.email}
                onBlur={formik.handleBlur}/>
         {formik.errors.email && formik.touched.email ? <div>{formik.errors.email}</div> : null}
       </div>
-      
+
       <div className="control-row">
         <div className="control">
           <label htmlFor="password">Password</label>
@@ -65,7 +66,7 @@ export default function Signup() {
                  value={formik.values.password} onBlur={formik.handleBlur}/>
           {formik.errors.password && formik.touched.password ? <div>{formik.errors.password}</div> : null}
         </div>
-        
+
         <div className="control">
           <label htmlFor="confirm-password">Confirm Password</label>
           <input
@@ -78,26 +79,26 @@ export default function Signup() {
           />
           {formik.errors['confirm-password'] && formik.touched['confirm-password'] ?
             <div>{formik.errors['confirm-password']}</div> : null}
-        
+
         </div>
       </div>
-      
+
       <hr/>
-      
+
       <div className="control-row">
         <div className="control">
           <label htmlFor="first-name">First Name</label>
           <input type="text" id="first-name" name="first-name" onChange={formik.handleChange}
                  value={formik.values['first-name']} onBlur={formik.handleBlur}/>
         </div>
-        
+
         <div className="control">
           <label htmlFor="last-name">Last Name</label>
           <input type="text" id="last-name" name="last-name" onChange={formik.handleChange}
                  value={formik.values['last-name']} onBlur={formik.handleBlur}/>
         </div>
       </div>
-      
+
       <div className="control">
         <label htmlFor="phone">What best describes your role?</label>
         <select id="role" name="role" onChange={formik.handleChange} value={formik.values['role']}
@@ -109,7 +110,7 @@ export default function Signup() {
           <option value="other">Other</option>
         </select>
       </div>
-      
+
       <fieldset>
         <legend>How did you find us?</legend>
         <div className="control">
@@ -123,7 +124,7 @@ export default function Signup() {
           />
           <label htmlFor="google">Google</label>
         </div>
-        
+
         <div className="control">
           <input
             type="checkbox"
@@ -135,14 +136,14 @@ export default function Signup() {
           />
           <label htmlFor="friend">Referred by friend</label>
         </div>
-        
+
         <div className="control">
           <input type="checkbox" id="other" name="acquisition" value="other" onChange={formik.handleChange}
                  checked={formik.values['acquisition'] === 'other'} onBlur={formik.handleBlur}/>
           <label htmlFor="other">Other</label>
         </div>
       </fieldset>
-      
+
       <div className="control">
         <label htmlFor="terms-and-conditions">
           <input type="checkbox" id="terms-and-conditions" name="terms" onChange={formik.handleChange}
@@ -150,7 +151,7 @@ export default function Signup() {
           agree to the terms and conditions
         </label>
       </div>
-      
+
       <p className="form-actions">
         <button type="reset" className="button button-flat">
           Reset
