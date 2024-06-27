@@ -1,4 +1,5 @@
 import logoImg from "../assets/logo.jpg";
+import Button from "./UI/Button.jsx";
 
 export function Header() {
   return (
@@ -7,7 +8,7 @@ export function Header() {
         <img src={logoImg} alt=""/>
         <h1>React Food</h1>
       </div>
-      <button>Cart (0)</button>
+      <Button textOnly>Cart (0)</Button>
     </header>
   );
 }
