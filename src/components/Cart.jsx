@@ -12,11 +12,11 @@ export default function Cart() {
   const cartTotal = items.reduce((totalPrice, item) => {
     return totalPrice + item.quantity * item.price
   }, 0)
-  
+
   function handleHideCart() {
     hideCart();
   }
-  
+
   return <Modal className="cart" open={progress === 'cart'}>
     <h2>Your Cart</h2>
     <ul>
@@ -33,7 +33,8 @@ export default function Cart() {
     <p className="cart-total">{currencyFormater.format(cartTotal)}</p>
     <p className="modal-actions">
       <Button textOnly onClick={hideCart}>Close</Button>
-      <Button>Go to Checkout</Button>
+      {items.length > 0 && <Button>Go to Checkout</Button>}
+
     </p>
   </Modal>
 }

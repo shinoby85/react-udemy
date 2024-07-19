@@ -50,7 +50,7 @@ function cartReducer(state, action) {
       }
     }
     default:
-      return state;
+      return {...state};
   }
 }
 
@@ -61,18 +61,18 @@ export function CartContextProvider({children}) {
     addItem,
     removeItem
   }
-  
+
   function addItem(item) {
     dispatchCartAction({
       type: ADD_ITEM,
       item: item
     });
   }
-  
+
   function removeItem(id) {
     dispatchCartAction({type: REMOVE_ITEM, id});
   }
-  
+
   console.log(cartContext.items);
   return <CartContext.Provider value={cartContext}>
     {children}
