@@ -21,6 +21,18 @@ export default function Checkout() {
     event.preventDefault();
     const fd = new FormData(event.target);
     const customerData = Object.fromEntries(fd.entries());
+    fetch('http://localhost:3000/orders', {
+      method: 'POST',
+      body: JSON.stringify({
+        order: {
+          items,
+          customer: customerData
+        }
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
   }
   
   return <Modal open={progress === 'checkout'} onClose={progress === 'checkout' ? handleClose : null}>
