@@ -1,11 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 
-createSlice({
+const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         items: [],
-        totalQuantity: 0,
-        totalAmount: 0,
+        totalQuantity: 0
     },
     reducers: {
         addItemToCart: (state, action) => {
@@ -31,7 +30,11 @@ createSlice({
                 state.items = state.items.filter(item => item.id !== id);
             } else {
                 existingItem.quantity--;
+                existingItem.totalPrice -= existingItem.price;
             }
         },
     }
 })
+
+export const cartActions = cartSlice.actions;
+export default cartSlice.reducer;
