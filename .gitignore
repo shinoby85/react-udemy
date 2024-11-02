@@ -26,3 +26,4 @@ yarn-error.log*
 /.idea/codeStyles/codeStyleConfig.xml
 /.idea/jsLinters/eslint.xml
 /.idea/prettier.xml
+/.idea/material_theme_project_new.xml
