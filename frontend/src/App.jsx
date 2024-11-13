@@ -31,46 +31,52 @@ import EventsRoot from "./pages/EventsRoot";
 import ErrorPage from "./pages/Error";
 
 const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <RootLayout/>,
-        errorElement: <ErrorPage/>,
+  {
+    path: "/",
+    element: <RootLayout/>,
+    errorElement: <ErrorPage/>,
+    children: [
+      {
+        path: "",
+        element: <Home/>
+      },
+      {
+        path: "events",
+        element: <EventsRoot/>,
         children: [
-            {
-                path: "",
-                element: <Home/>
-            },
-            {
-                path: "events",
-                element: <EventsRoot/>,
-                children: [
-                    {
-                        path: "",
-                        element: <Events/>,
-                        loader: eventLoading,
-                    },
-                    {
-                        path: ":id",
-                        element: <EventDetail/>,
-                        loader: eventDetailLoader
-                    },
-                    {
-                        path: ":id/edit",
-                        element: <EditEvent/>
-                    },
-                    {
-                        path: "new",
-                        element: <NewEvent/>
-                    }
-                ]
-            }
+          {
+            path: "",
+            element: <Events/>,
+            loader: eventLoading,
+          },
+          {
+            path: ":id",
+            id: 'event-detail',
+            loader: eventDetailLoader,
+            children: [
+              {
+                index: true,
+                element: <EventDetail/>,
+              },
+              {
+                path: "edit",
+                element: <EditEvent/>
+              },
+            ]
+          },
+          {
+            path: "new",
+            element: <NewEvent/>
+          }
         ]
-    },
+      }
+    ]
+  },
 
 ]);
 
 function App() {
-    return <RouterProvider router={router}/>
+  return <RouterProvider router={router}/>
 }
 
 export default App;
