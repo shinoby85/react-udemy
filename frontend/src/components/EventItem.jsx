@@ -7,7 +7,7 @@ function EventItem({event}) {
   function startDeleteHandler() {
     const process = window.confirm("Are you sure?");
     if (process) {
-      submit(null, {method: "DELETE"});
+      submit({test: 'Data', testId: 1254}, {method: "DELETE"});
     }
   }
 
