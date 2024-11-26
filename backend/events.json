@@ -8,5 +8,11 @@
       "id": "2a42fcc4-ea21-4bdd-abf6-c40006dc66a9"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "email": "ponk@tut.by",
+      "password": "$2a$12$0SQJOUp3j5lNL4bQkKr2GO3sa4mr/4JgBnpt3p.Z6cUy4d1.m6RcW",
+      "id": "3af80e66-70f3-4e21-b754-997ebb7aa2df"
+    }
+  ]
 }
