@@ -25,7 +25,7 @@ export async function action({request}) {
     },
     body: JSON.stringify(authData)
   });
-  if (resp.status === 422 && resp.status === 401) {
+  if (resp.status === 422 || resp.status === 401) {
     return resp;
   }
   if (!resp.ok) {
