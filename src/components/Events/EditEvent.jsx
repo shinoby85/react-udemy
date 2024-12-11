@@ -1,45 +1,43 @@
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, redirect, useNavigate, useNavigation, useParams, useSubmit} from 'react-router-dom';
 
 import Modal from '../UI/Modal.jsx';
 import EventForm from './EventForm.jsx';
-import {useMutation, useQuery} from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import {fetchEvent, queryClient, updateEvent} from "../../util/http.js";
 import ErrorBlock from "../UI/ErrorBlock.jsx";
-import LoadingIndicator from "../UI/LoadingIndicator.jsx";
 
 export default function EditEvent() {
   const params = useParams();
-  const {data, isPending, isError, error} = useQuery({
+  const submit = useSubmit();
+  const {data, isError, error} = useQuery({
     queryKey: ["events", {eventId: params.id}],
     queryFn: ({signal}) => fetchEvent({id: params.id, signal}),
+    staleTime: 10000,
   });
   const navigate = useNavigate();
+  const {state} = useNavigation();
 
-  const {mutate} = useMutation({
-    mutationFn: updateEvent,
-    onMutate: async (date) => {
-      const newEvent = data.event;
-      await queryClient.cancelQueries(["events", {eventId: params.id}]);
-      const previousEvent = queryClient.getQueryData(["events", {eventId: params.id}]);
-      queryClient.setQueriesData(["events", {eventId: params.id}], newEvent);
-      return {previousEvent};
-    },
-    onError: (error, data, context) => {
-      queryClient.setQueriesData(["events", {eventId: params.id}], context.previousEvent);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["events", {eventId: params.id}],
-      });
-    }
-  });
+  // const {mutate} = useMutation({
+  //   mutationFn: updateEvent,
+  //   onMutate: async (date) => {
+  //     const newEvent = data.event;
+  //     await queryClient.cancelQueries(["events", {eventId: params.id}]);
+  //     const previousEvent = queryClient.getQueryData(["events", {eventId: params.id}]);
+  //     queryClient.setQueriesData(["events", {eventId: params.id}], newEvent);
+  //     return {previousEvent};
+  //   },
+  //   onError: (error, data, context) => {
+  //     queryClient.setQueriesData(["events", {eventId: params.id}], context.previousEvent);
+  //   },
+  //   onSettled: () => {
+  //     queryClient.invalidateQueries({
+  //       queryKey: ["events", {eventId: params.id}],
+  //     });
+  //   }
+  // });
 
   function handleSubmit(formData) {
-    mutate({
-      id: params.id,
-      event: formData
-    });
-    navigate('../');
+    submit(formData, {method: "PUT"});
   }
 
   function handleClose() {
@@ -47,14 +45,6 @@ export default function EditEvent() {
   }
 
   let content;
-
-  if (isPending) {
-    content = (
-      <div className="center">
-        <LoadingIndicator/>
-      </div>
-    );
-  }
 
   if (isError) {
     content = (
@@ -78,12 +68,17 @@ export default function EditEvent() {
   if (data) {
     content = (
       <EventForm inputData={data} onSubmit={handleSubmit}>
-        <Link to="../" className="button-text">
-          Cancel
-        </Link>
-        <button type="submit" className="button">
-          Update
-        </button>
+        {state === "submitting" ? <p>Sending data...</p> : (
+          <>
+            <Link to="../" className="button-text">
+              Cancel
+            </Link>
+            <button type="submit" className="button">
+              Update
+            </button>
+          </>
+        )}
+
       </EventForm>
     )
   }
@@ -93,4 +88,19 @@ export default function EditEvent() {
       {content}
     </Modal>
   );
+}
+
+export function loader({params}) {
+  return queryClient.fetchQuery({
+    queryKey: ["events", {eventId: params.id}],
+    queryFn: ({signal}) => fetchEvent({id: params.id, signal}),
+  })
+}
+
+export async function action({request, params}) {
+  const formData = await request.formData();
+  const updatedEventData = Object.fromEntries(formData);
+  await updateEvent({id: params.id, event: updatedEventData});
+  await queryClient.invalidateQueries(["events"]);
+  return redirect("../");
 }
