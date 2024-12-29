@@ -3,10 +3,6 @@ import ImagePicker from "@/components/meals/image-picker";
 import {shareMeal} from "@/lib/actions";
 
 export default function ShareMealPage() {
-  function handlerFormSubmit() {
-
-  }
-
   return (
     <>
       <header className={classes.header}>
@@ -16,7 +12,7 @@ export default function ShareMealPage() {
         <p>Or any other meal you feel needs sharing!</p>
       </header>
       <main className={classes.main}>
-        <form className={classes.form} action={shareMeal} onSubmit={handlerFormSubmit}>
+        <form className={classes.form} action={shareMeal}>
           <div className={classes.row}>
             <p>
               <label htmlFor="name">Your name</label>

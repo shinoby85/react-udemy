@@ -1,14 +1,11 @@
 'use client'
 import classes from "./image-picker.module.css";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import Image from "next/image";
 
-export default function ImagePicker({label, name, resetImage}) {
+export default function ImagePicker({label, name}) {
   const [pickedImage, setPickedImage] = useState(null);
   const imageInput = useRef();
-  useEffect(() => {
-    setPickedImage(null);
-  }, [resetImage]);
 
   function handlePickClick() {
     imageInput.current.click();
