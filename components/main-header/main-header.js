@@ -10,7 +10,7 @@ export default function MainHeader() {
     <>
       <MainHeaderBackground/>
       <header className={classes.header}>
-        <Link href="/public" className={classes.logo}>
+        <Link href="/" className={classes.logo}>
           {/*<img src={logoImg.src} alt="A plate with food on it"/>*/}
           <Image src={logoImg} alt="A plate with food on it" priority/>
           Next level food
