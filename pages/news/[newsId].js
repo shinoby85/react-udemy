@@ -1,6 +1,6 @@
 import {useRouter} from "next/router";
 
-export default function DetailsPage() {
+export default function DetailPage() {
   const router = useRouter();
   const newsId = router.query.newsId;
   return (
