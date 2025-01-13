@@ -17,27 +17,27 @@ const DUMMY_MEETUP = [
   }
 ];
 
-export async function getServerSideProps(context) {
-  const req = context.req;
-  const res = context.res;
-
-  // fetch data from an API
-
-  return {
-    props: {
-      meetups: DUMMY_MEETUP
-    }
-  }
-}
-
-// export async function getStaticProps() {
+// export async function getServerSideProps(context) {
+//   const req = context.req;
+//   const res = context.res;
+//
+//   // fetch data from an API
+//
 //   return {
 //     props: {
-//       meetups: DUMMY_MEETUP,
-//     },
-//     revalidate: 10
+//       meetups: DUMMY_MEETUP
+//     }
 //   }
 // }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      meetups: DUMMY_MEETUP,
+    },
+    revalidate: 10
+  }
+}
 
 export default function HomePage(props) {
   // const [loadedMeetups, setLoadedMeetups] = useState([]);
