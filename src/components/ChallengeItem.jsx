@@ -1,13 +1,13 @@
-import { useContext } from 'react';
+import {useContext} from 'react';
 
-import { ChallengesContext } from '../store/challenges-context.jsx';
+import {ChallengesContext} from '../store/challenges-context.jsx';
 
 export default function ChallengeItem({
-  challenge,
-  onViewDetails,
-  isExpanded,
-}) {
-  const { updateChallengeStatus } = useContext(ChallengesContext);
+                                        challenge,
+                                        onViewDetails,
+                                        isExpanded,
+                                      }) {
+  const {updateChallengeStatus} = useContext(ChallengesContext);
 
   const formattedDate = new Date(challenge.deadline).toLocaleDateString(
     'en-US',
@@ -42,7 +42,7 @@ export default function ChallengeItem({
             </p>
           </div>
         </header>
-        <div className="challenge-item-details">
+        <div className={`challenge-item-details ${isExpanded ? 'expanded' : ''}`}>
           <p>
             <button onClick={onViewDetails}>
               View Details{' '}
