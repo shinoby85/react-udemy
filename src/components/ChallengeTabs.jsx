@@ -1,6 +1,7 @@
 import Badge from './Badge.jsx';
+import {motion} from "framer-motion";
 
-function Tab({ isSelected, onSelect, badgeCaption, children }) {
+function Tab({isSelected, onSelect, badgeCaption, children}) {
   return (
     <li>
       <button
@@ -10,17 +11,17 @@ function Tab({ isSelected, onSelect, badgeCaption, children }) {
         {children}
         <Badge caption={badgeCaption}></Badge>
       </button>
-      {isSelected && <div className="active-tab-indicator" />}
+      {isSelected && <motion.div layoutId="tab-indicator" className="active-tab-indicator"/>}
     </li>
   );
 }
 
 export default function ChallengeTabs({
-  selectedType,
-  onSelectType,
-  challenges,
-  children,
-}) {
+                                        selectedType,
+                                        onSelectType,
+                                        challenges,
+                                        children,
+                                      }) {
   return (
     <>
       <menu id="tabs">
