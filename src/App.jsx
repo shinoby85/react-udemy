@@ -8,7 +8,7 @@ function App() {
         <Accordion.Item className="accordion-item">
           <Accordion.Title id="experience" className="accordion-item-title">We got 20 years of
             experience</Accordion.Title>
-          <Accordion.Content className="accordion-item-context" id="experience">
+          <Accordion.Content className="accordion-item-content" id="experience">
             <article>
               <p>You can&apos;t go wrong with us.</p>
               <p>We are in the business of planing highly individualized vacation trips for more then 20 years.</p>
@@ -19,7 +19,7 @@ function App() {
         <Accordion.Item className="accordion-item">
           <Accordion.Title id="local-guides" className="accordion-item-title">We are working with local
             guides.</Accordion.Title>
-          <Accordion.Content className="accordion-item-context" id="local-guides">
+          <Accordion.Content className="accordion-item-content" id="local-guides">
             <article>
               <p>Lorem ipsum dolor sit amet.</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae deleniti impedit in molestiae quos
