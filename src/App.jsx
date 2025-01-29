@@ -1,24 +1,23 @@
 import Accordion from "./components/Accordion/Accordion.jsx";
-import AccordionItem from "./components/Accordion/AccordionItem.jsx";
 
 function App() {
   return <main>
     <section>
       <h2>Why work with us?</h2>
       <Accordion className="accordion">
-        <AccordionItem className="accordion-item" title="We got 20 years of experience" id="experience">
+        <Accordion.Item className="accordion-item" title="We got 20 years of experience" id="experience">
           <article>
             <p>You can&apos;t go wrong with us.</p>
             <p>We are in the business of planing highly individualized vacation trips for more then 20 years.</p>
           </article>
-        </AccordionItem>
-        <AccordionItem className="accordion-item" title="We are working with local guides." id="local-guides">
+        </Accordion.Item>
+        <Accordion.Item className="accordion-item" title="We are working with local guides." id="local-guides">
           <article>
             <p>Lorem ipsum dolor sit amet.</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae deleniti impedit in molestiae quos
               velit?</p>
           </article>
-        </AccordionItem>
+        </Accordion.Item>
       </Accordion>
     </section>
   </main>;
