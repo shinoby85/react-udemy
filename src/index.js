@@ -1,22 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ProductsProvider from './context/products-context';
 import {BrowserRouter} from 'react-router-dom';
 
 import './index.css';
 import App from './App';
+import configureStore from "./hooks-store/products-store";
 
-// const rootReducer = combineReducers({
-//   shop: productReducer,
-// });
-//
-// const store = createStore(rootReducer);
+configureStore();
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <ProductsProvider>
-    <BrowserRouter>
-      <App/>
-    </BrowserRouter>
-  </ProductsProvider>
+  <BrowserRouter>
+    <App/>
+  </BrowserRouter>
 );
