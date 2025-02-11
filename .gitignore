@@ -34,3 +34,4 @@ yarn-error.log*
 /.idea/jsLinters/eslint.xml
 /.idea/prettier.xml
 /.idea/jsLibraryMappings.xml
+/.idea/workspace.xml
