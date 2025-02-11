@@ -10,7 +10,7 @@ function App() {
   ]);
 
   function addTodoHandler(todoText: string): void {
-    setTodos(lastTodos=>{
+    setTodos(lastTodos => {
       return [
         ...lastTodos,
         new Todo(todoText)
@@ -18,10 +18,16 @@ function App() {
     });
   }
 
+  function removeTodoHandler(id: string): void {
+    setTodos(lastTodos => {
+      return lastTodos.filter(todo => todo.id !== id);
+    })
+  }
+
   return (
     <div>
-      <NewTodo onAddTodo={addTodoHandler}/>
-      <Todos items={todos}/>
+      <NewTodo onAddTodo={addTodoHandler} />
+      <Todos items={todos} onRemoveTodo={removeTodoHandler}/>
     </div>
   )
 }

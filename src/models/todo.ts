@@ -4,7 +4,7 @@ class Todo {
 
   constructor(textData: string) {
     this.text = textData;
-    this.id = (new Date()).toISOString();
+    this.id = new Date().toISOString();
   }
 }
 
