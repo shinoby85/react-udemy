@@ -35,3 +35,5 @@ yarn-error.log*
 /.idea/prettier.xml
 /.idea/jsLibraryMappings.xml
 /.idea/workspace.xml
+
+/.next
