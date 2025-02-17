@@ -28,23 +28,21 @@ export default function Checkout() {
   const cartTotal = items.reduce((totalPrice, item) => {
     return totalPrice + item.quantity * item.price
   }, 0)
-  
+
   function handleClose() {
     hideCheckout();
   }
-  
+
   function handleFinish() {
     hideCheckout();
     clearCart();
     clearData();
   }
-  
-  function handleSubmit(event) {
-    event.preventDefault();
-    const fd = new FormData(event.target);
+
+  async function checkoutAction(fd) {
     const customerData = Object.fromEntries(fd.entries());
-    
-    sendRequest(
+
+    await sendRequest(
       JSON.stringify({
         order: {
           items,
@@ -52,18 +50,18 @@ export default function Checkout() {
         }
       }));
   }
-  
+
   let action = (
     <>
       <Button type="button" textOnly onClick={handleClose}>Close</Button>
       <Button>Submit Order</Button>
     </>
   );
-  
+
   if (isSending) {
     action = <span>Sending order data...</span>
   }
-  
+
   if (data && !error) {
     return (
       <Modal open={progress === 'checkout'} onClose={handleClose}>
@@ -76,9 +74,9 @@ export default function Checkout() {
       </Modal>
     );
   }
-  
+
   return <Modal open={progress === 'checkout'} onClose={progress === 'checkout' ? handleClose : null}>
-    <form onSubmit={handleSubmit}>
+    <form action={checkoutAction}>
       <h2>Checkout</h2>
       <p>Total amount: {currencyFormater.format(cartTotal)}</p>
       <Input label="Full Name" type="text" id="name"/>
