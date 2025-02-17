@@ -1,11 +1,25 @@
 {
   "opinions": [
     {
+      "id": 1739778365923,
+      "votes": 1,
+      "userName": "ponkTester",
+      "title": "My test title",
+      "body": "It's a good practice for me!"
+    },
+    {
+      "id": 1739777549632,
+      "votes": 3,
+      "userName": "Zhenya",
+      "title": "React is great!",
+      "body": "I realy like it a lot - everyone should learn it!"
+    },
+    {
       "id": 1,
       "userName": "Maximilian Schwarzmüller",
       "title": "Do yourself a favor and learn React!",
       "body": "React is an amazing JavaScript library!\n\nDespite all it's shortcomings.",
-      "votes": 0
+      "votes": 1
     },
     {
       "id": 2,

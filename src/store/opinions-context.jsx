@@ -1,13 +1,16 @@
-import { createContext, useEffect, useState } from 'react';
+import {createContext, useEffect, useState} from 'react';
 
 export const OpinionsContext = createContext({
   opinions: null,
-  addOpinion: (opinion) => {},
-  upvoteOpinion: (id) => {},
-  downvoteOpinion: (id) => {},
+  addOpinion: (opinion) => {
+  },
+  upvoteOpinion: (id) => {
+  },
+  downvoteOpinion: (id) => {
+  },
 });
 
-export function OpinionsContextProvider({ children }) {
+export function OpinionsContextProvider({children}) {
   const [opinions, setOpinions] = useState();
 
   useEffect(() => {
@@ -37,22 +40,34 @@ export function OpinionsContextProvider({ children }) {
     setOpinions((prevOpinions) => [savedOpinion, ...prevOpinions]);
   }
 
-  function upvoteOpinion(id) {
+  async function upvoteOpinion(id) {
+    const response = await fetch(`http://localhost:3000/opinions/${id}/upvote`, {
+      method: 'POST',
+    });
+    if (!response.ok) {
+      return;
+    }
     setOpinions((prevOpinions) => {
       return prevOpinions.map((opinion) => {
         if (opinion.id === id) {
-          return { ...opinion, votes: opinion.votes + 1 };
+          return {...opinion, votes: opinion.votes + 1};
         }
         return opinion;
       });
     });
   }
 
-  function downvoteOpinion(id) {
+  async function downvoteOpinion(id) {
+    const response = await fetch(`http://localhost:3000/opinions/${id}/downvote`, {
+      method: 'POST',
+    });
+    if (!response.ok) {
+      return;
+    }
     setOpinions((prevOpinions) => {
       return prevOpinions.map((opinion) => {
         if (opinion.id === id) {
-          return { ...opinion, votes: opinion.votes - 1 };
+          return {...opinion, votes: opinion.votes - 1};
         }
         return opinion;
       });
